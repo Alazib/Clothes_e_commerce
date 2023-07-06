@@ -48,42 +48,52 @@ const SignUpForm = () => {
     setFormFields(defaultFormFields)
   }
 
-  console.log(formFields)
-
   return (
     <div>
       <h1>Sign up with your email and password</h1>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Display Name"
-          onChange={handleChange}
-          name="displayName"
-          value={displayName}
-          required
+          inputProps={{
+            type: "text",
+            onChange: handleChange,
+            name: "displayName",
+            value: displayName,
+            required: true,
+          }}
         />
 
         <FormInput
           label="Email"
-          onChange={handleChange}
-          name="email"
-          value={email}
-          required
+          inputProps={{
+            type: "email",
+            onChange: handleChange,
+            name: "email",
+            value: email,
+            required: true,
+          }}
         />
 
         <FormInput
           label="Password"
-          onChange={handleChange}
-          name="password"
-          value={password}
-          required
+          inputProps={{
+            type: "password",
+            onChange: handleChange,
+            name: "password",
+            value: password,
+            required: true,
+          }}
         />
 
         <FormInput
           label="Confirm Password"
-          onChange={handleChange}
-          name="confirmPassword"
-          value={confirmPassword}
-          required
+          inputProps={{
+            type: "password",
+            onChange: handleChange,
+            name: "confirmPassword",
+            value: confirmPassword,
+            required: true,
+          }}
         />
 
         <button type="submit">Sign Up</button>
