@@ -35,6 +35,8 @@ const SignUpForm = () => {
     try {
       const { user } = await createUserWithEmailAndPassword(email, password)
 
+      //We have to pass the displayName (from de form field) as a parameter to create de user doc because in the email/password auth Firebase
+      //don't give back the user name.
       await createUserDocumentFromAuth(user, { displayName })
       resetFormFields()
     } catch (error) {
