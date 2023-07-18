@@ -4,6 +4,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword as _createUserWithEmailAndPassword,
+  signInWithEmailAndPassword as _signInWithEmailAndPassword,
 } from "firebase/auth"
 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore"
@@ -29,17 +30,26 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig)
 
 // --------------------------------------------------------------
-
+//This set Google as auth provider
 const provider = new GoogleAuthProvider()
 provider.setCustomParameters({
   prompt: "select_account",
 })
 
 export const auth = getAuth()
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider)
-
 export const db = getFirestore()
 
+//
+//
+// -------------------  SIGN UP METHODS (Email/Password). User doesn't exist yet. ------------------//
+
+//This CREATES A NEW USER on Auth Firebase (not in BBDD!!!) after Sign Up wit Email/Password.
+export const createUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return
+  return await _createUserWithEmailAndPassword(auth, email, password)
+}
+
+//This ADDS THE NEW USER TO FIRESTORE (in BBDD) --> 1) after Sign Up with Email/Password or 2) after Sign In with Google, Facebook, GitHub etc. or after
 export const createUserDocumentFromAuth = async (
   userAuth,
   additionalInformation = {}
@@ -71,7 +81,15 @@ export const createUserDocumentFromAuth = async (
   return userDocRef
 }
 
-export const createUserWithEmailAndPassword = async (email, password) => {
+//
+//
+// -------------------  SIGN IN METHODS (Email/Password and Google). User already exists  ------------------//
+
+// This allows user to Sign In with his email/password. Previous Sign Up (Email/Password needed)
+export const signInWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return
-  return await _createUserWithEmailAndPassword(auth, email, password)
+  return await _signInWithEmailAndPassword(auth, email, password)
 }
+//This CREATES A NEW USER on Auth Firebase (not in BBDD!!!) and ADDS THE NEW USER TO FIRESTORE (in BBDD) when Signing In with Google.
+// Previous sign up don't needed because Google assures that new user is who he claims to be.
+export const signInWithGooglePopup = () => signInWithPopup(auth, provider)
