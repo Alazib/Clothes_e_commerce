@@ -90,6 +90,7 @@ export const signInWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return
   return await _signInWithEmailAndPassword(auth, email, password)
 }
+
 //This CREATES A NEW USER on Auth Firebase (not in BBDD!!!) and ADDS THE NEW USER TO FIRESTORE (in BBDD) when Signing In with Google.
 // Previous sign up don't needed because Google assures that new user is who he claims to be.
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider)
