@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { UserContext } from "../../contexts/user.context"
 import {
   createUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -16,8 +17,9 @@ const SignUpForm = () => {
     confirmPassword: "",
   }
   const [formFields, setFormFields] = useState(defaultFormFields)
-
   const { displayName, email, password, confirmPassword } = formFields
+
+  const { setCurrentUser } = useContext(UserContext)
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -34,7 +36,7 @@ const SignUpForm = () => {
 
     try {
       const { user } = await createUserWithEmailAndPassword(email, password)
-
+      setCurrentUser(user)
       //We have to pass the displayName (from de form field) as a parameter to create de user doc because in the email/password auth Firebase
       //don't give back the user name.
       await createUserDocumentFromAuth(user, { displayName })

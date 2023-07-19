@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { UserContext } from "../../contexts/user.context"
 import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
@@ -15,8 +16,9 @@ const SignInForm = () => {
     password: "",
   }
   const [formFields, setFormFields] = useState(defaultFormFields)
-
   const { email, password } = formFields
+
+  const { setCurrentUser } = useContext(UserContext)
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -26,8 +28,8 @@ const SignInForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      const response = await signInWithEmailAndPassword(email, password)
-      console.log(response)
+      const { user } = await signInWithEmailAndPassword(email, password)
+      setCurrentUser(user)
       resetFormFields()
     } catch (error) {
       if (error.code === "auth/wrong-password") {
@@ -47,6 +49,7 @@ const SignInForm = () => {
   const signInWithGoogle = async () => {
     try {
       const { user } = await signInWithGooglePopup()
+      setCurrentUser(user)
       await createUserDocumentFromAuth(user)
     } catch (error) {
       if (error.code === "auth/popup-closed-by-user") {
@@ -57,7 +60,7 @@ const SignInForm = () => {
 
   return (
     <div className="sign-up-container">
-      <h2>Alreaday have an account?</h2>
+      <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
