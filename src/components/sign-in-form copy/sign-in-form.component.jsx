@@ -1,8 +1,7 @@
-import { useState, useContext } from "react"
-import { UserContext } from "../../contexts/user.context"
+import { useState } from "react"
+
 import {
   signInWithGooglePopup,
-  createUserDocumentFromAuth,
   signInWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils"
 
@@ -18,8 +17,6 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
 
-  const { setCurrentUser } = useContext(UserContext)
-
   const handleChange = (event) => {
     const { name, value } = event.target
     setFormFields({ ...formFields, [name]: value })
@@ -28,8 +25,8 @@ const SignInForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      const { user } = await signInWithEmailAndPassword(email, password)
-      setCurrentUser(user)
+      await signInWithEmailAndPassword(email, password)
+
       resetFormFields()
     } catch (error) {
       if (error.code === "auth/wrong-password") {
@@ -48,9 +45,7 @@ const SignInForm = () => {
 
   const signInWithGoogle = async () => {
     try {
-      const { user } = await signInWithGooglePopup()
-      setCurrentUser(user)
-      await createUserDocumentFromAuth(user)
+      await signInWithGooglePopup()
     } catch (error) {
       if (error.code === "auth/popup-closed-by-user") {
         console.log("Sign in with Google was cancelled")

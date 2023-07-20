@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword as _createUserWithEmailAndPassword,
   signInWithEmailAndPassword as _signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth"
 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore"
@@ -56,11 +57,12 @@ export const createUserDocumentFromAuth = async (
   additionalInformation = {}
 ) => {
   if (!userAuth) return
+
   const userDocRef = doc(db, "users", userAuth.uid)
 
   console.log("USER DOC REF", userDocRef)
 
-  const userSnapShot = await getDoc(userDocRef)
+  const userSnapShot = await getDoc(userDocRef) // With the 'hipotetical' reference that should exist it tries to get the document, the 'photo' of the user object if exists
   console.log("USER SNAP SHOT", userSnapShot)
   console.log(userSnapShot.exists())
 
@@ -100,3 +102,7 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider)
 export const signOutUser = async () => {
   await signOut(auth)
 }
+
+//This method triggers whatever callback passed-in when user's sign-in state changes
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback) //This is a open listener: is always listening for changes in user's sign-in state.
