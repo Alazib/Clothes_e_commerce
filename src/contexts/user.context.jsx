@@ -21,7 +21,6 @@ export const UserProvider = ({ children }) => {
     // individual document.
     //This function calls the listener onAuthStateChanged in firebase.utils.js when the App is mounted in order to keep tracking
     // whatever change in user's sign-in state occurs and to trigger the function inside it when this changes occur.
-
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
         createUserDocumentFromAuth(user)
