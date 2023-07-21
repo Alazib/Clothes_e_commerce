@@ -1,6 +1,7 @@
 import "./form-input.styles.scss"
 
 const FormInput = ({ label, inputProps }) => {
+  console.log(Boolean(inputProps.value.length))
   return (
     <div className="form">
       <input className="form-input" {...inputProps} />
