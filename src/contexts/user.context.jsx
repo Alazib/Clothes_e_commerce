@@ -25,10 +25,7 @@ export const UserProvider = ({ children }) => {
       if (user) {
         createUserDocumentFromAuth(user)
       }
-
       setCurrentUser(user) // If user is sign in 'set the user object' if not 'set null'
-
-      console.log(user)
     })
     return unsubscribe
   }, [])
