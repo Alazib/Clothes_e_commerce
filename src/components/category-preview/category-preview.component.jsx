@@ -7,8 +7,9 @@ const CategoryPreview = ({ title, products }) => {
       <h2>
         <span className="title">{title.toUpperCase()}</span>
       </h2>
-      {/* We use a filter here with index < 4 because, in this preview, we only want to show de first 4 products form each category */}
+
       <div className="preview">
+        {/* We use a filter here with index < 4 because we only want to show de first 4 products form each category (it is only a preview) */}
         {products
           .filter((_, index) => index < 4)
           .map((product) => {
