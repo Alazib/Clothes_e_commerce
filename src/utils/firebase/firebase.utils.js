@@ -9,7 +9,16 @@ import {
   onAuthStateChanged,
 } from "firebase/auth"
 
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore"
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  writeBatch,
+  query,
+  getDocs,
+} from "firebase/firestore"
 
 // -------------------------------------------------------------
 
@@ -41,7 +50,54 @@ provider.setCustomParameters({
 export const auth = getAuth()
 export const db = getFirestore()
 
+//This adds new collections and its documents (data) to the FireStore BBDD
+export const addCollectionAndDocuments = async (
+  collectionKey, //collectionKey is the title of the collection --> 'categories' in this particular cases
+  objectsToAdd
+) => {
+  const collectionRef = collection(db, collectionKey)
+
+  const batch = writeBatch(db)
+
+  //Each object is one category (5 categories in total, with its title and its products -items-)
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase()) // We pass collectionRef instead DB + collection-key, because collectionRef was collected from DB and it already
+    //has de DB ref that 'doc' needs (db/categories). We pass also the document reference: the name of the category: 'hats', 'sneakers', etc.
+
+    batch.set(docRef, object)
+  })
+  await batch.commit()
+}
+
+//This fetchs the data from collections form the FireStore BBDD (in this case from the 'categories' collection)
+export const getCategoriesAndDocuments = async () => {
+  const collectionRef = collection(db, "categories")
+
+  const q = query(collectionRef)
+
+  const querySnapshot = await getDocs(q)
+
+  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+    const { title, items } = docSnapshot.data()
+
+    acc[title.toLowerCase()] = items
+    return acc
+  }, {})
+
+  return categoryMap
+}
+
 //
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
 //
 // -------------------  SIGN UP METHODS (Email/Password). User doesn't exist yet. ------------------//
 
@@ -58,11 +114,10 @@ export const createUserDocumentFromAuth = async (
 ) => {
   if (!userAuth) return
 
-  const userDocRef = doc(db, "users", userAuth.uid)
-
+  const userDocRef = doc(db, "users", userAuth.uid) // it'is an URL-like: db/users/12241234ZJ
   console.log("USER DOC REF", userDocRef)
 
-  const userSnapShot = await getDoc(userDocRef) // With the 'hipotetical' reference that should exist it tries to get the document, the 'photo' of the user object if exists
+  const userSnapShot = await getDoc(userDocRef) // With the 'hipotetical' reference that should exist it tries to get the document: the 'photo' of the user object if exists
   console.log("USER SNAP SHOT", userSnapShot)
   console.log(userSnapShot.exists())
 
