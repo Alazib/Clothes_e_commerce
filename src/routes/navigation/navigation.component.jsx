@@ -1,7 +1,7 @@
-import { Outlet, Link } from "react-router-dom"
+import { Outlet } from "react-router-dom"
 import { useContext } from "react"
 import { UserContext } from "../../contexts/user.context"
-import { ReactComponent as CrwnLogo } from "../../assets/crown.svg"
+import { ReactComponent as Logo } from "../../assets/hanger-svgrepo-com.svg"
 import {
   NavigationContainer,
   LogoContainer,
@@ -21,7 +21,14 @@ const Navigation = () => {
     <>
       <NavigationContainer>
         <LogoContainer to="/">
-          <CrwnLogo className="logo" />
+          <Logo
+            style={{
+              width: "80px",
+              position: "absolute",
+              top: "25px",
+              left: "30px",
+            }}
+          />
         </LogoContainer>
 
         <NavLinksContainer>
