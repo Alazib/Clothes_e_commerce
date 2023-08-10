@@ -7,7 +7,7 @@ import {
 
 import FormInput from "../form-input/form-input.component"
 import "./sign-in-form.styles.scss"
-import Button from "../button/button.component"
+import Button, { BUTTON_TYPES } from "../button/button.component"
 
 const SignInForm = () => {
   const defaultFormFields = {
@@ -81,7 +81,11 @@ const SignInForm = () => {
         />
         <div className="buttons-container">
           <Button type="submit">Sign In</Button>
-          <Button type="button" onClick={signInWithGoogle} buttonType="google">
+          <Button
+            type="button"
+            onClick={signInWithGoogle}
+            buttonType={BUTTON_TYPES.google}
+          >
             Google sign in
           </Button>
         </div>
