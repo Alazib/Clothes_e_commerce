@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom"
+import { ReactComponent as Logo } from "../../assets/hanger-svgrepo-com.svg"
 
 export const NavigationContainer = styled.div`
   height: 70px;
@@ -26,4 +27,11 @@ export const NavLinksContainer = styled.div`
 export const NavLink = styled(Link)`
   padding: 10px 15px;
   cursor: pointer;
+`
+
+export const RackLogo = styled(Logo)`
+  width: 80px;
+  position: absolute;
+  top: 25px;
+  left: 30px;
 `

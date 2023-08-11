@@ -15,7 +15,7 @@ const DirectoryItem = ({ category }) => {
         navigate(`/shop/${title.toLowerCase()}`)
       }}
     >
-      <BackGroundImage imageUrl={imageUrl} />
+      <BackGroundImage imageurl={imageUrl} />
       <Body>
         <h2>{title}</h2>
         <p>Shop now</p>
