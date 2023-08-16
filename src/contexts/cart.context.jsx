@@ -35,7 +35,7 @@ const deleteCartItem = (cartProducts, productToDelete) => {
 }
 
 //////
-// Why did we migrate from useEffect to useReducer? In this particular case when we add/remove/delete any product from the cart we needed also to update
+// Why did we migrate from useState to useReducer? In this particular case when we add/remove/delete any product from the cart we needed also to update
 // the totalPrice with a useEffect (and the totalNumberOfProducts with a different useEffect but, in this case, I handled it as a cartProducts.length directly in the code
 // instead of as another state). So,
 // when a singular change requieres aditional changes it would be recommended to use a useReducer in order to handle the hole procees at once, at a single operation
