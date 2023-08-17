@@ -5,4 +5,9 @@ import {
 } from "redux"
 import logger from "redux-logger"
 
-//root-reducer
+import { rootReducer } from "./root-reducer"
+
+const middleWares = [logger] //This middleware loggs out the state of the store before and after the action hits the reducers
+const composedEnhancers = compose(applyMiddleware(...middleWares))
+
+export const store = createStore(rootReducer, undefined, composedEnhancers)
