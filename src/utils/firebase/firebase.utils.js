@@ -160,4 +160,4 @@ export const signOutUser = async () => {
 
 //This method triggers whatever callback passed-in when user's sign-in state changes
 export const onAuthStateChangedListener = (callback) =>
-  onAuthStateChanged(auth, callback) //This is a open listener: is always listening for changes in user's sign-in state.
+  onAuthStateChanged(auth, callback) //This is a open listener: is always listening for changes in user's sign-in state in Firebase.
