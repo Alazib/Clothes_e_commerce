@@ -13,7 +13,7 @@ import CartIcon from "../../components/cart-icon/cart-icon.component"
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component"
 import { CartContext } from "../../contexts/cart.context"
 import { useSelector } from "react-redux"
-import { selectCurrentUser } from "../../store/user/user-selector.js"
+import { selectCurrentUser } from "../../store/user/user.selector"
 
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser)

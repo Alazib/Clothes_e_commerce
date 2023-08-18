@@ -9,7 +9,7 @@ import {
   onAuthStateChangedListener,
 } from "../src/utils/firebase/firebase.utils"
 import { useEffect } from "react"
-import { setUserAction } from "./store/user/user-action"
+import { setUserAction } from "./store/user/user.action"
 import { useDispatch } from "react-redux"
 
 const App = () => {
