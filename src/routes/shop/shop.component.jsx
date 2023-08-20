@@ -15,9 +15,9 @@ const Shop = () => {
   //the 2 components who need it are Category and CategoriesPreview...so, we put the useEffect who fetches Categories from firebase in their first common ancestor --> Shop.
   useEffect(() => {
     const getCategoriesMap = async () => {
-      const categoryMap = await getCategoriesAndDocuments()
+      const categoriesArray = await getCategoriesAndDocuments()
 
-      dispatch(setCategoriesAction(categoryMap))
+      dispatch(setCategoriesAction(categoriesArray))
     }
     getCategoriesMap()
   }, [])
