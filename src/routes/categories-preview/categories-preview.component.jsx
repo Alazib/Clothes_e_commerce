@@ -3,11 +3,11 @@ import CategoryPreview from "../../components/category-preview/category-preview.
 import { selectCategoriesMap } from "../../store/categories/categories.selector"
 
 const CategoriesPreview = () => {
-  const categories = useSelector(selectCategoriesMap)
+  const categoriesMap = useSelector(selectCategoriesMap)
   return (
     <>
-      {Object.keys(categories).map((title) => {
-        const products = categories[title]
+      {Object.keys(categoriesMap).map((title) => {
+        const products = categoriesMap[title]
         return (
           <CategoryPreview
             key={title}
