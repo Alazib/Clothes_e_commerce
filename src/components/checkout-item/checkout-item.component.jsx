@@ -1,23 +1,27 @@
-import { useContext } from "react"
 import "./checkout-item.styles.scss"
-import { CartContext } from "../../contexts/cart.context"
+import { useDispatch, useSelector } from "react-redux"
+import { selectCartProducts } from "../../store/cart/cart.selector"
+import {
+  addProductToCart,
+  removeProductFromCart,
+  clearProductFromCart,
+} from "../../store/cart/cart.action"
 
 const CheckoutItem = ({ product }) => {
+  const dispatch = useDispatch()
+
   const { name, imageUrl, price, quantity } = product
 
-  const { addProductToCart, removeProductFromCart, deleteProductFromCart } =
-    useContext(CartContext)
+  const cartProducts = useSelector(selectCartProducts)
 
-  function deleteProduct() {
-    deleteProductFromCart(product)
-  }
-  function incrementProduct() {
-    addProductToCart(product)
-  }
+  const clearProduct = () =>
+    dispatch(clearProductFromCart(cartProducts, product))
 
-  function removeProduct() {
-    removeProductFromCart(product)
-  }
+  const incrementProduct = () =>
+    dispatch(addProductToCart(cartProducts, product))
+
+  const removeProduct = () =>
+    dispatch(removeProductFromCart(cartProducts, product))
 
   return (
     <div className="checkout-item-container">
@@ -35,7 +39,7 @@ const CheckoutItem = ({ product }) => {
         </div>
       </span>
       <span className="price">{price}</span>
-      <div className="remove-button" onClick={deleteProduct}>
+      <div className="remove-button" onClick={clearProduct}>
         &#10005;
       </div>
     </div>
