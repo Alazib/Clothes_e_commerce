@@ -25,7 +25,15 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 const middleWares = [process.env.NODE_ENV !== "production" && logger].filter(
   Boolean
 ) //This middleware loggs out the state of the store before and after the action hits the reducers. We don't want the logs in production mode.
-const composedEnhancers = compose(applyMiddleware(...middleWares))
+
+const composeEnhancer =
+  (process.env.NODE_ENV !== "production" &&
+    window &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose // If we are not in production AND the window object exists (in build mode there is no window object; we don't want redux dev extension
+// in build mode in order to avoid breaks down), then use the 'compose' of Redux devtools extension; if not, use de compose of Redux
+
+const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares))
 
 export const store = createStore(persistedReducer, undefined, composedEnhancers)
 export const persistor = persistStore(store)
