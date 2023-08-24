@@ -48,6 +48,11 @@ export const selectCategoriesMap = createSelector(
     }, {})
 )
 
+export const selectCategoriesIsLoading = createSelector(
+  [selectCategoriesReducer],
+  (categoriesReducer) => categoriesReducer.isLoading
+)
+
 // We have created one createSelector for each value than I want to memoize: one in order to memoize the whole state of
 // the 'categoriesReducer' (line 36) and another to memoize only 'categories' (line 41).
 // Now, if we LogOut, neither selectCategories nor selectCategoriesMap will run their outputs (because its inputs [...] never change);
