@@ -22,7 +22,9 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 /// Setting the Redux store
 
-const middleWares = [logger] //This middleware loggs out the state of the store before and after the action hits the reducers
+const middleWares = [process.env.NODE_ENV !== "production" && logger].filter(
+  Boolean
+) //This middleware loggs out the state of the store before and after the action hits the reducers. We don't want the logs in production mode.
 const composedEnhancers = compose(applyMiddleware(...middleWares))
 
 export const store = createStore(persistedReducer, undefined, composedEnhancers)
