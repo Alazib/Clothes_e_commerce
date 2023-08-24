@@ -23,18 +23,20 @@ const Category = () => {
 
   return (
     <>
-      <h2 className="category-title">{category.toUpperCase()}</h2>
-      <div className="category-container">
-        {isLoading ? (
-          <Spinner></Spinner>
-        ) : (
-          products?.map((product) => {
-            return (
-              <ProductCard key={product.id} product={product}></ProductCard>
-            )
-          })
-        )}
-      </div>
+      {isLoading ? (
+        <Spinner></Spinner>
+      ) : (
+        <>
+          <h2 className="category-title">{category.toUpperCase()}</h2>
+          <div className="category-container">
+            {products?.map((product) => {
+              return (
+                <ProductCard key={product.id} product={product}></ProductCard>
+              )
+            })}
+          </div>
+        </>
+      )}
     </>
   )
 }
