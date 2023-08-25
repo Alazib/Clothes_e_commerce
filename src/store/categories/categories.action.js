@@ -14,9 +14,11 @@ export const fetchCategoriesSuccess = (categoriesArray) =>
 export const fetchCategoriesFailed = (error) =>
   createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error)
 
-// This is the async thunk middleware. It allows us to pass a function -fetchCategoriesAsync()- ir order to
-// be dispatched (in the useEffect of Shop), instead of passing the typical action -{type:..., action:...}..
+// This is the thunk middleware. It allows us to pass a function -fetchCategoriesAsync()- ir order to
+// be dispatched (in the useEffect of Shop), instead of passing the typical action -{type:..., action:...}. Thunk acts,
+// as a middleware that it is, between the dispatch and the reducers
 // https://redux.js.org/usage/writing-logic-thunks#why-use-thunks
+
 export const fetchCategoriesAsync = () => async (dispatch, getState) => {
   dispatch(fetchCategoriesStart())
 
