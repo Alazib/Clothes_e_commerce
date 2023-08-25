@@ -70,8 +70,8 @@ export const addCollectionAndDocuments = async (
 }
 
 //This fetchs the data from collections form the FireStore BBDD (in this case from the 'categories' collection)
-export const getCategoriesAndDocuments = async () => {
-  const collectionRef = collection(db, "categories")
+export const getCategoriesAndDocuments = async (theCollection) => {
+  const collectionRef = collection(db, theCollection)
 
   const q = query(collectionRef)
 

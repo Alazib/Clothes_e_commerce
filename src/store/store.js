@@ -28,7 +28,7 @@ const middleWares = [
   process.env.NODE_ENV !== "production" && logger,
   sagaMiddleware,
 ].filter(Boolean) // Middlewares: 1)  Logger => loggs out the state of the store before and after the action hits the reducers.
-//We don't want the logs in production mode.  2) Thunks => Allow us to use async functions as dispatched actions
+//We don't want the logs in production mode.  2) SagaMiddleware (actions reach Saga once the have hit reducer!!!)
 
 const composeEnhancer =
   (process.env.NODE_ENV !== "production" &&
