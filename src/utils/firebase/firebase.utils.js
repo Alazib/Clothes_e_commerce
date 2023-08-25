@@ -151,6 +151,20 @@ export const signOutUser = async () => {
   await signOut(auth)
 }
 
-//This method triggers whatever callback passed-in when user's sign-in state changes
-export const onAuthStateChangedListener = (callback) =>
-  onAuthStateChanged(auth, callback) //This is a open listener: is always listening for changes in user's sign-in state in Firebase.
+//We want convert from a observable listener (the Firebase 'onAuthStateChangedListener()' ) into a promise based function in order to
+// create a Saga flow
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    //Calling onAuthStateChanged() “adds an observer/listener for changes to the user’s sign-in state” AND returns
+    // an unsubscribe function that can be called to cancel the listener.
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        // We get the userAuth value from Firebase and inmmediately we're going to unsubscribe
+        unsubscribe()
+        resolve(userAuth)
+      },
+      reject
+    )
+  })
+}

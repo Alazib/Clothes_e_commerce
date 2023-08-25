@@ -6,6 +6,7 @@ import Shop from "./routes/shop/shop.component"
 import CheckOut from "./routes/checkout/checkout.component"
 import {
   createUserDocumentFromAuth,
+  getCurrentUser,
   onAuthStateChangedListener,
 } from "../src/utils/firebase/firebase.utils"
 import { useEffect } from "react"
@@ -16,21 +17,9 @@ const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    // This function CENTRALICES the management of setting new user and creating new user document, instead of doing it on each
-    // individual document.
-    //This function calls the listener onAuthStateChanged in firebase.utils.js when the App is mounted in order to keep tracking
-    // whatever change in user's sign-in state occurs and to trigger the function inside it when this changes occur.
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        // If user signs-in in Firebase createUserDocument
-        //and 'dispatch the user action' Redux .
-        createUserDocumentFromAuth(user)
-      }
-      // If user signs-out in Firebase 'dispatch the user action'
-      // Redux (with null)
-      dispatch(setUserAction(user))
+    getCurrentUser().then((userAuth) => {
+      console.log(userAuth)
     })
-    return unsubscribe
   }, [])
 
   return (
