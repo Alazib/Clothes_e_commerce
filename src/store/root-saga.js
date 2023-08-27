@@ -1,5 +1,6 @@
 import { all, call } from "redux-saga/effects"
 import { categoriesSaga } from "./categories/categories.saga"
+import { userSaga } from "./user/user.saga"
 
 // Redux-Saga is also a middleware but has a main difference with Redux-Thunk: while Redux Thunk acts after the dispatch and before reducers (
 // (in the middle of both )Saga acts always AFTER reducers: The dispatched action pass through the middlewares (except Saga), hits the reducer
@@ -8,7 +9,7 @@ import { categoriesSaga } from "./categories/categories.saga"
 // Sagas themselves are based off of JavaScript generator functions.
 
 export function* rootSaga() {
-  yield all([call(categoriesSaga)])
+  yield all([call(categoriesSaga), call(userSaga)])
 }
 
 // //

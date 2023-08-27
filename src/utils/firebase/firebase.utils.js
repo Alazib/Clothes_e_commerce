@@ -129,7 +129,7 @@ export const createUserDocumentFromAuth = async (
     }
   }
 
-  return userDocRef
+  return userSnapShot // The data lives in the snap shot
 }
 
 //
