@@ -1,15 +1,12 @@
 import { useState } from "react"
-
-import {
-  createUserWithEmailAndPassword,
-  createUserDocumentFromAuth,
-} from "../../utils/firebase/firebase.utils"
-
 import FormInput from "../form-input/form-input.component"
 import "./sign-up-form.styles.scss"
 import Button from "../button/button.component"
+import { signUpStart } from "../../store/user/user.action"
+import { useDispatch } from "react-redux"
 
 const SignUpForm = () => {
+  const dispatch = useDispatch()
   const defaultFormFields = {
     displayName: "",
     email: "",
@@ -31,20 +28,10 @@ const SignUpForm = () => {
       alert("Passwords do not match")
       return
     }
-
-    try {
-      const { user } = await createUserWithEmailAndPassword(email, password)
-      //We have to pass the displayName (from de form field) as a parameter to create de user doc because in the email/password auth Firebase
-      //don't give back the user name.
-      await createUserDocumentFromAuth(user, { displayName })
-      resetFormFields()
-    } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
-        alert("The email is already in use")
-      } else {
-        alert("User creation error")
-      }
-    }
+    //We have to pass the displayName (from the form field) as a parameter to create the user doc because in the email/password auth Firebase
+    //don't give back the user name.
+    dispatch(signUpStart(email, password, displayName))
+    resetFormFields()
   }
 
   const resetFormFields = () => {

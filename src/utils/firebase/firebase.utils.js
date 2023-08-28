@@ -124,12 +124,14 @@ export const createUserDocumentFromAuth = async (
         createdAt,
         ...additionalInformation,
       })
+      const newUserSnapShot = await getDoc(userDocRef)
+      return newUserSnapShot
     } catch (error) {
       console.log(error, "ERROR CREATING THE USER")
     }
   }
 
-  return userSnapShot // The data lives in the snap shot
+  return userSnapShot // The data lives in the snapshot
 }
 
 //
