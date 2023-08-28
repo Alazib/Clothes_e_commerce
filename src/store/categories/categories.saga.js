@@ -17,11 +17,15 @@ export function* fetchCategoriesAsync() {
   }
 }
 
-export function* onFetchCategoriesStart() {
+export function* onFetchCategoriesStart(action) {
+  //Saga receives de full action that previously has passed trough the reducer in case we want to use it.
+  // Here we don't need to use it, but in the user saga we will do
+
   yield takeLatest(
     CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START,
     fetchCategoriesAsync
-  ) //Here is where we receive actions. This action has already passed through the reducer (now 'isLoading: true') and has hit the Saga.
+  ) //Here is where we receive actions. Is the ENTRY POINT OF Saga. This action (FETCH_CATEGORIES_START) has already passed through the middleware (except Saga)
+  // and the reducer (now 'isLoading: true') and finally has hit the Saga.
   // takeLatest says: "If you hear a bunch of the same action, give me the latest one"
 }
 

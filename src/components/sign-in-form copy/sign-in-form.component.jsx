@@ -1,15 +1,15 @@
 import { useState } from "react"
-
-import {
-  signInWithGooglePopup,
-  signInWithEmailAndPassword,
-} from "../../utils/firebase/firebase.utils"
-
 import FormInput from "../form-input/form-input.component"
 import "./sign-in-form.styles.scss"
 import Button, { BUTTON_TYPES } from "../button/button.component"
+import { useDispatch } from "react-redux"
+import {
+  emailSignInStart,
+  googleSignInStart,
+} from "../../store/user/user.action"
 
 const SignInForm = () => {
+  const dispatch = useDispatch()
   const defaultFormFields = {
     email: "",
     password: "",
@@ -24,19 +24,9 @@ const SignInForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    try {
-      await signInWithEmailAndPassword(email, password)
 
-      resetFormFields()
-    } catch (error) {
-      if (error.code === "auth/wrong-password") {
-        alert("Incorrect Password")
-      } else if (error.code === "auth/user-not-found") {
-        alert("User doesn't exist")
-      } else {
-        console.log(error)
-      }
-    }
+    dispatch(emailSignInStart(email, password))
+    resetFormFields()
   }
 
   const resetFormFields = () => {
@@ -44,13 +34,7 @@ const SignInForm = () => {
   }
 
   const signInWithGoogle = async () => {
-    try {
-      await signInWithGooglePopup()
-    } catch (error) {
-      if (error.code === "auth/popup-closed-by-user") {
-        console.log("Sign in with Google was cancelled")
-      }
-    }
+    dispatch(googleSignInStart())
   }
 
   return (
