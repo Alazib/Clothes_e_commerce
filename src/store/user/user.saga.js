@@ -6,10 +6,13 @@ import {
   getCurrentUser,
   signInWithEmailAndPassword,
   signInWithGooglePopup,
+  signOutUser,
 } from "../../utils/firebase/firebase.utils"
 import {
   signInFailed,
   signInSuccess,
+  signOutFailed,
+  signOutSuccess,
   signUpFailed,
   signUpSuccess,
 } from "./user.action"
@@ -84,6 +87,20 @@ export function* signInAfterSignUpSuccess(action) {
   yield call(getSnapshotFromUserAuth, user, { additionalDetails })
 }
 
+export function* signOutStart() {
+  try {
+    yield call(signOutUser)
+    yield put(signOutSuccess())
+  } catch (error) {
+    yield put(signOutFailed(error))
+  }
+}
+
+//
+//
+//These 'on...' Sagas below are where we receive actions. They are the ENTRY POINT OF Saga. The actions
+// have already passed through the middleware (except Saga) and the reduce  and finally have hit the Saga.
+
 export function* onCheckUserSession() {
   yield takeLatest(USER_ACTIONS_TYPES.CHECK_USER_SESSION, isUserAuthenticated)
 }
@@ -103,6 +120,14 @@ export function* onSignUpStart() {
 export function* onSignUpSuccess() {
   yield takeLatest(USER_ACTIONS_TYPES.SIGN_UP_SUCCESS, signInAfterSignUpSuccess)
 }
+
+export function* onSignOutStart() {
+  yield takeLatest(USER_ACTIONS_TYPES.SIGN_OUT_START, signOutStart)
+}
+
+//
+//
+// This is an acumulator that holds all the sagas that are related to user
 export function* userSaga() {
   yield all([
     call(onCheckUserSession),
@@ -110,5 +135,6 @@ export function* userSaga() {
     call(onEmailSignIn),
     call(onSignUpStart),
     call(onSignUpSuccess),
+    call(onSignOutStart),
   ])
 }
