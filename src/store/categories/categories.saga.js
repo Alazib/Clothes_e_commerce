@@ -10,7 +10,6 @@ export function* fetchCategoriesAsync() {
   try {
     const categoriesArray = yield call(getCategoriesAndDocuments, "categories") //Anywhere we have a function and we want to turn it into
     //an effect we use 'call'. We pass it as parameters the function to be called and its arguments.
-    console.log(categoriesArray)
     yield put(fetchCategoriesSuccess(categoriesArray)) // Instead of dispatch, we use put.
   } catch (error) {
     yield put(fetchCategoriesFailed(error))

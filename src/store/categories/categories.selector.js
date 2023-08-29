@@ -16,9 +16,9 @@
 // If a selector always returns new references, it will force the component to re-render even if the derived data is effectively the same as last time. This is especially common with array operations like map() and filter(), which return new array references."
 
 // SOLUTION:
-// Caching the selectors. If we select the same that we selected before (in this case, state.categories that only change once: in the first render when its value is set),
-// the selector does not perform a selection and selectCategoriesMap doesn't trigger. Category tries to set categoriesMap (line 13), but
-// selectCategories doesn't not trigger due to the previous caching wieth createSelector.
+// Caching the selectors. If we select the same value (===) that we selected before (in this case, state.categories that only change once: in the first render when its value is set),
+// the useSelector of Category performs a selection, but the createSelector of selectCategoriesMap returns the same value as before (the value was cached). So categoryMap has the same value
+// as before (===) and the useSelector of Category doesn't re-render the Category component again
 // Now, if I LogOut, Category not re-render again.
 // READ: https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization
 
@@ -28,15 +28,15 @@ import { createSelector } from "reselect"
 const selectCategoriesReducer = (state) => state.categories
 
 //This selector give us back the portion of the whole state form categoriesReducer that we need: the 'categories' state.
-// This selector is a memoized selector: the output runs only when the whole state from 'categoriesReducer' (get from selectCategoriesReducer)
+// This selector is a memoized selector: the OUTPUT runs only when the INPUT ('categoriesReducer', get from selectCategoriesReducer)
 // has changed (when the whole state of categories reducer gets updated). If not, it returns the SAME value (so, with the SAME reference): the cached value
 export const selectCategories = createSelector(
-  [selectCategoriesReducer],
-  (categoriesReducer) => categoriesReducer.categories
+  [selectCategoriesReducer], //This the INPUT
+  (categoriesReducer) => categoriesReducer.categories // This is the OUTPUT
 )
 
 //This selector give us back the categoriesMap.
-// This selector is a memoized selector: the output runs only when 'categories'(get from selectCategories)
+// This selector is a memoized selector: the OUTPUT runs only when the INPUT ('categories', get from selectCategories)
 // is different (when it get updated). If not, it returns the SAME value (so, with the SAME reference): the cached value
 export const selectCategoriesMap = createSelector(
   [selectCategories],
