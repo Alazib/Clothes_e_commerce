@@ -1,5 +1,21 @@
 ## Description
-Clothes E-commerce is a fullstack clothing store. You can visit it on https://magnificent-blini-4fc047.netlify.app/
+   Clothes E-commerce is a fullstack clothing store. You can visit it on https://magnificent-blini-4fc047.netlify.app/
+
+   <br>
+
+![Captura de pantalla (688)](https://github.com/Alazib/clothes-e-commerce--v1--redux-thunks-and-redux-saga/assets/99830132/328dfe2e-cfd8-46bd-bf6b-cba1c69d54b9)
+
+<br>
+
+![Captura de pantalla (689)](https://github.com/Alazib/clothes-e-commerce--v1--redux-thunks-and-redux-saga/assets/99830132/a3bf75f1-01ec-4785-afe3-b0d5c3ccd630)
+
+<br>
+
+![Captura de pantalla (690)](https://github.com/Alazib/clothes-e-commerce--v1--redux-thunks-and-redux-saga/assets/99830132/b1e28338-bdca-4d9a-831f-25973a1456f4)
+
+<br>
+
+![Captura de pantalla (691)](https://github.com/Alazib/clothes-e-commerce--v1--redux-thunks-and-redux-saga/assets/99830132/502ffe07-231e-40d3-aa1b-1b7a863ef82a)
 
 <br>
 
