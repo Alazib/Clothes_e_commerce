@@ -34,7 +34,7 @@
 - [React Router](https://reactrouter.com/en/main)
 - [Redux](https://reactrouter.com/en/main)
   - [Redux Thunk](https://github.com/reduxjs/redux-thunk) and [Redux Saga](https://redux-saga.js.org/).
-  - [Redux ToolKit](https://redux-toolkit.js.org/) in project's v2 (https://github.com/Alazib/clothes-e-commerce--v2--redux-toolkit) 
+  - [Redux ToolKit](https://redux-toolkit.js.org/) in the [playground version](https://github.com/Alazib/clothes-e-commerce--redux-toolkit) of this project. 
 - [TypeScript](https://www.typescriptlang.org/)
 - [Stripe](https://stripe.com/docs/api) 
 - Firebase: [Firebase/auth](https://firebase.google.com/docs/auth) and [Firebase/firestore](https://firebase.google.com/docs/firestore)
