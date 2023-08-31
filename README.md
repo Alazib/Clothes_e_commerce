@@ -19,6 +19,12 @@
 
 <br>
 
+![Captura de pantalla (692)](https://github.com/Alazib/clothes-e-commerce--v1--redux-thunks-and-redux-saga/assets/99830132/c891dbd0-dbaa-40bc-9e9b-291b1ece85c2)
+
+<br>
+
+
+
 ## Features
 
 <b>
