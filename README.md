@@ -1,3 +1,8 @@
+## Description
+Clothes E-commerce is a fullstack clothing store. You can visit it on https://magnificent-blini-4fc047.netlify.app/
+
+<br>
+
 ## Features
 
 <b>
@@ -10,7 +15,7 @@
   - [Redux ToolKit](https://redux-toolkit.js.org/) in project's v2 (https://github.com/Alazib/clothes-e-commerce--v2--redux-toolkit) 
 - [TypeScript](https://www.typescriptlang.org/)
 - [Stripe](https://stripe.com/docs/api) 
-- [Firebase](https://firebase.google.com/?hl=es)
+- Firebase: [Firebase/auth](https://firebase.google.com/docs/auth) and [Firebase/firestore](https://firebase.google.com/docs/firestore)
 - Testing:
   - [Jest](https://jestjs.io/es-ES/)
   - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
